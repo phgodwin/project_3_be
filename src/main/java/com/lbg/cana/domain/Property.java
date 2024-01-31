@@ -30,7 +30,6 @@ public class Property {
 
 	public Property() {
 		super();
-
 	}
 
 	public Integer getId() {
@@ -107,8 +106,9 @@ public class Property {
 
 	@Override
 	public String toString() {
-		return "Property: id=" + id + ", Seller Name" + sellnme + ", Price" + prc + ", Location" + loc + ", Postcode"
-				+ pcod + ", bedrooms=" + beds + ", bathrooms=" + bath + ", garden=" + grdn + ", status=" + status + "]";
+		return "Property: [ID = " + id + ", Seller Name = " + sellnme + ", Price = " + prc + ", Location = " + loc
+				+ ", PostCode = " + pcod + ", Bedrooms = " + beds + ", Bathrooms = " + bath + ", Garden = " + grdn
+				+ ", Status = " + status + "]";
 	}
 
 }

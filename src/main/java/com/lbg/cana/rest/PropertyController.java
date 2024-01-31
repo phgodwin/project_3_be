@@ -13,7 +13,6 @@ public class PropertyController {
 
 	public PropertyController(PropertyService service) {
 		super();
-
 		this.service = service;
 
 	}
