@@ -1,5 +1,9 @@
 package com.lbg.cana.repo;
 
-public interface SellerRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.lbg.cana.domain.Seller;
+
+public interface SellerRepo extends JpaRepository<Seller, Integer> {
 
 }
