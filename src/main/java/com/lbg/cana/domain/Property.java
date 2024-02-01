@@ -1,9 +1,13 @@
 package com.lbg.cana.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Property {
@@ -27,6 +31,12 @@ public class Property {
 	private String grdn;
 
 	private String status;
+
+	@ManyToOne
+	private Seller seller;
+
+	@OneToMany(mappedBy = "property")
+	private List<Booking> booking;
 
 	public Property() {
 		super();

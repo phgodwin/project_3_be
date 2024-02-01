@@ -20,6 +20,9 @@ public class Booking {
 	@ManyToOne
 	private Buyer buyer;
 
+	@ManyToOne
+	private Property property;
+
 	public Booking() {
 		super();
 	}
