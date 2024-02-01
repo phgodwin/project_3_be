@@ -1,5 +1,9 @@
 package com.lbg.cana.repo;
 
-public interface BookingRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.lbg.cana.domain.Booking;
+
+public interface BookingRepo extends JpaRepository<Booking, Integer> {
 
 }
