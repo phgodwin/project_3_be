@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Booking {
@@ -12,11 +13,12 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	private String buyerName;
-
 	private String time;
 
 	private String date;
+
+	@ManyToOne
+	private Buyer buyer;
 
 	public Booking() {
 		super();
@@ -28,14 +30,6 @@ public class Booking {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getBuyerName() {
-		return buyerName;
-	}
-
-	public void setBuyerName(String buyerName) {
-		this.buyerName = buyerName;
 	}
 
 	public String getTime() {
@@ -56,7 +50,7 @@ public class Booking {
 
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", buyerName=" + buyerName + ", time=" + time + ", date=" + date + "]";
+		return "Booking [ID = " + id + ", Time = " + time + ", Date = " + date + "]";
 	}
 
 }

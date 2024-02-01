@@ -3,6 +3,7 @@ package com.lbg.cana.rest;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.lbg.cana.domain.Booking;
 import com.lbg.cana.service.BookingService;
 
 @RequestMapping("/bookings")
+@CrossOrigin
 @RestController
 public class BookingController {
 
