@@ -44,4 +44,11 @@ public class BookingService {
 		return ResponseEntity.ok(body);
 	}
 
+	public boolean deleteBooking(int id) {
+
+		this.repo.deleteById(id);
+
+		return !this.repo.existsById(id);
+	}
+
 }
