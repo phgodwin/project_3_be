@@ -1,9 +1,12 @@
 package com.lbg.cana.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Seller {
@@ -26,7 +29,8 @@ public class Seller {
 		super();
 	}
 
-//	Space for mapping
+	@OneToMany(mappedBy = "seller")
+	private List<Property> properties;
 
 	public Integer getId() {
 		return id;

@@ -1,9 +1,12 @@
 package com.lbg.cana.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Buyer {
@@ -22,11 +25,12 @@ public class Buyer {
 
 	private String emailAdd;
 
+	@OneToMany(mappedBy = "buyer")
+	private List<Booking> bookings;
+
 	public Buyer() {
 		super();
 	}
-
-//	LEAVE SPACE FOR ONE TO MANY
 
 	public Integer getId() {
 		return id;
