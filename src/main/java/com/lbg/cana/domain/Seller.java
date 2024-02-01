@@ -29,8 +29,6 @@ public class Seller {
 		super();
 	}
 
-//	Space for mapping
-
 	@OneToMany(mappedBy = "seller")
 	private List<Property> properties;
 

@@ -32,8 +32,6 @@ public class Buyer {
 		super();
 	}
 
-//	LEAVE SPACE FOR ONE TO MANY
-
 	public Integer getId() {
 		return id;
 	}
