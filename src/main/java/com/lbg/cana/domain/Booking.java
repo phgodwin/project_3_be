@@ -1,5 +1,7 @@
 package com.lbg.cana.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,9 +19,11 @@ public class Booking {
 
 	private String date;
 
+	@JsonBackReference(value = "buyer")
 	@ManyToOne
 	private Buyer buyer;
 
+	@JsonBackReference(value = "property")
 	@ManyToOne
 	private Property property;
 

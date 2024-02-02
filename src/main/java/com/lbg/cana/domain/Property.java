@@ -2,6 +2,8 @@ package com.lbg.cana.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,9 +34,11 @@ public class Property {
 
 	private String status;
 
+	@JsonBackReference(value = "seller")
 	@ManyToOne
 	private Seller seller;
 
+	@JsonBackReference(value = "property")
 	@OneToMany(mappedBy = "property")
 	private List<Booking> booking;
 

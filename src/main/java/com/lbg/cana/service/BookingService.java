@@ -21,34 +21,25 @@ public class BookingService {
 	}
 
 	public ResponseEntity<Booking> createBooking(Booking newBooking) {
-
 		Booking created = this.repo.save(newBooking);
-
 		return new ResponseEntity<Booking>(created, HttpStatus.CREATED);
 	}
 
 	public List<Booking> getBooking() {
-
 		return this.repo.findAll();
 	}
 
 	public ResponseEntity<Booking> getBooking(int id) {
-
 		Optional<Booking> found = this.repo.findById(id);
-
 		if (found.isEmpty()) {
 			return new ResponseEntity<Booking>(HttpStatus.NOT_FOUND);
 		}
-
 		Booking body = found.get();
 		return ResponseEntity.ok(body);
 	}
 
 	public boolean deleteBooking(int id) {
-
 		this.repo.deleteById(id);
-
 		return !this.repo.existsById(id);
 	}
-
 }

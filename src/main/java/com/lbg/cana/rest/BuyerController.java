@@ -40,5 +40,4 @@ public class BuyerController {
 	public ResponseEntity<Buyer> getBuyer(@PathVariable int id) {
 		return this.service.getBuyer(id);
 	}
-
 }

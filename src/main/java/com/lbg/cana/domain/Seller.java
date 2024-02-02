@@ -2,6 +2,8 @@ package com.lbg.cana.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,7 @@ public class Seller {
 		super();
 	}
 
+	@JsonManagedReference(value = "seller")
 	@OneToMany(mappedBy = "seller")
 	private List<Property> properties;
 

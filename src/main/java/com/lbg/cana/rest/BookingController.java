@@ -29,7 +29,6 @@ public class BookingController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Booking> createBooking(@RequestBody Booking newBooking) {
-
 		return this.service.createBooking(newBooking);
 	}
 
@@ -40,13 +39,11 @@ public class BookingController {
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Booking> getBooking(@PathVariable int id) {
-
 		return this.service.getBooking(id);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public boolean deleteBooking(@PathVariable int id) {
-
 		return this.service.deleteBooking(id);
 
 	}
