@@ -29,13 +29,11 @@ public class SellerController {
 	}
 
 	@PostMapping("/create")
-
 	public ResponseEntity<Seller> createSeller(@RequestBody Seller newSeller) {
 		return this.service.createSeller(newSeller);
 	}
 
 	@GetMapping("/get")
-
 	public List<Seller> getSeller() {
 		return this.service.getSeller();
 
@@ -44,6 +42,12 @@ public class SellerController {
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Seller> getSeller(@PathVariable int id) {
 		return this.service.getSeller(id);
+	}
+
+	@GetMapping("/get/{firstName}/{lastName}")
+	public ResponseEntity<Seller> findByFirstNameAndLastName(@PathVariable String firstName,
+			@PathVariable String lastName) {
+		return this.service.findByFirstNameAndLastName(firstName, lastName);
 	}
 
 	@DeleteMapping("/delete/{id}")

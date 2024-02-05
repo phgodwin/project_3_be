@@ -1,5 +1,6 @@
 package com.lbg.cana.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.lbg.cana.domain.Property;
+import com.lbg.cana.dtos.PropertyDTO;
 import com.lbg.cana.repo.PropertyRepo;
 
 @Service
@@ -27,9 +29,25 @@ public class PropertyService {
 		return new ResponseEntity<Property>(created, HttpStatus.CREATED);
 	}
 
-	public List<Property> getProperty() {
+	public List<PropertyDTO> getProperty() {
+		List<Property> properties = this.repo.findAll();
+		List<PropertyDTO> dtos = new ArrayList<PropertyDTO>();
 
-		return this.repo.findAll();
+		for (Property property : properties) {
+			PropertyDTO dto = new PropertyDTO();
+			dto.setId(property.getId());
+			dto.setSellerName(property.getSeller().getFirstName() + " " + property.getSeller().getLastName());
+			dto.setBath(property.getBath());
+			dto.setBeds(property.getBeds());
+			dto.setGrdn(property.getGrdn());
+			dto.setLoc(property.getLoc());
+			dto.setPcod(property.getPcod());
+			dto.setPrc(property.getPrc());
+			dto.setStatus(property.getStatus());
+			dtos.add(dto);
+		}
+
+		return dtos;
 	}
 
 	public ResponseEntity<Property> getProperty(int id) {
@@ -56,10 +74,6 @@ public class PropertyService {
 		}
 
 		Property body = found.get();
-
-		if (newProperty.getSellnme() != null)
-
-			body.setSellnme(newProperty.getSellnme());
 
 		if (newProperty.getPrc() != null)
 

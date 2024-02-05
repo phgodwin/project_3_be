@@ -1,21 +1,7 @@
-package com.lbg.cana.domain;
+package com.lbg.cana.dtos;
 
-import java.util.List;
+public class PropertyDTO {
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-
-@Entity
-public class Property {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String prc;
@@ -32,15 +18,11 @@ public class Property {
 
 	private String status;
 
-	@JsonBackReference(value = "seller")
-	@ManyToOne
-	private Seller seller;
+	private String sellerName;
 
-	@JsonBackReference(value = "property")
-	@OneToMany(mappedBy = "property")
-	private List<Booking> booking;
+//	private List<Booking> booking;
 
-	public Property() {
+	public PropertyDTO() {
 		super();
 	}
 
@@ -108,19 +90,11 @@ public class Property {
 		this.status = status;
 	}
 
-	public Seller getSeller() {
-		return seller;
+	public String getSellerName() {
+		return sellerName;
 	}
 
-	public void setSeller(Seller seller) {
-		this.seller = seller;
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
 	}
-
-	@Override
-	public String toString() {
-		return "Property: [ID = " + id + ", Price = " + prc + ", Location = " + loc + ", PostCode = " + pcod
-				+ ", Bedrooms = " + beds + ", Bathrooms = " + bath + ", Garden = " + grdn + ", Status = " + status
-				+ "]";
-	}
-
 }
