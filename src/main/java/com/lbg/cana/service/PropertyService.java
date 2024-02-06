@@ -90,7 +90,6 @@ public class PropertyService {
 	}
 
 	public ResponseEntity<Property> updateProperty(int id, Property newProperty) {
-
 		Optional<Property> found = this.repo.findById(id);
 
 		if (found.isEmpty()) {
@@ -101,36 +100,24 @@ public class PropertyService {
 		Property body = found.get();
 
 		if (newProperty.getPrc() != null)
-
 			body.setPrc(newProperty.getPrc());
-
 		if (newProperty.getLoc() != null)
-
 			body.setLoc(newProperty.getLoc());
-
 		if (newProperty.getPcod() != null)
-
 			body.setPcod(newProperty.getPcod());
-
 		if (newProperty.getBeds() != null)
-
 			body.setBeds(newProperty.getBeds());
-
 		if (newProperty.getBath() != null)
-
 			body.setBath(newProperty.getBath());
-
 		if (newProperty.getGrdn() != null)
-
 			body.setGrdn(newProperty.getGrdn());
-
 		if (newProperty.getStatus() != null)
 
 			body.setStatus(newProperty.getStatus());
 
-		this.repo.save(body);
+		Property updated = this.repo.save(body);
 
-		return ResponseEntity.ok(body);
+		return ResponseEntity.ok(updated);
 	}
 
 }
