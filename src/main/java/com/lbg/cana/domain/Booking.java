@@ -2,6 +2,7 @@ package com.lbg.cana.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +15,9 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	@Column(nullable = false)
 	private String time;
-
+	@Column(nullable = false)
 	private String date;
 
 	@JsonBackReference(value = "buyer")
@@ -55,9 +56,12 @@ public class Booking {
 		this.date = date;
 	}
 
-	@Override
-	public String toString() {
-		return "Booking [ID = " + id + ", Time = " + time + ", Date = " + date + "]";
+	public Buyer getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
 	}
 
 }

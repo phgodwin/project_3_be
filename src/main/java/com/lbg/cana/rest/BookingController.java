@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lbg.cana.domain.Booking;
+import com.lbg.cana.dtos.BookingDTO;
 import com.lbg.cana.service.BookingService;
 
 @RequestMapping("/bookings")
@@ -33,7 +34,7 @@ public class BookingController {
 	}
 
 	@GetMapping("/get")
-	public List<Booking> getBooking() {
+	public List<BookingDTO> getBooking() {
 		return this.service.getBooking();
 	}
 
