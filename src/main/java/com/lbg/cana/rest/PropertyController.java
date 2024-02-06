@@ -42,7 +42,7 @@ public class PropertyController {
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Property> getProperty(@PathVariable int id) {
+	public ResponseEntity<PropertyDTO> getProperty(@PathVariable int id) {
 
 		return this.service.getProperty(id);
 

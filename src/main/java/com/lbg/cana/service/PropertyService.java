@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.lbg.cana.domain.Booking;
 import com.lbg.cana.domain.Property;
+import com.lbg.cana.dtos.BookingDTO;
 import com.lbg.cana.dtos.PropertyDTO;
 import com.lbg.cana.repo.PropertyRepo;
 
@@ -50,18 +52,41 @@ public class PropertyService {
 		return dtos;
 	}
 
-	public ResponseEntity<Property> getProperty(int id) {
+	public ResponseEntity<PropertyDTO> getProperty(int id) {
 
 		Optional<Property> found = this.repo.findById(id);
 
 		if (found.isEmpty()) {
 
-			return new ResponseEntity<Property>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<PropertyDTO>(HttpStatus.NOT_FOUND);
 		}
 
-		Property body = found.get();
+		PropertyDTO dto = new PropertyDTO();
+		Property property = found.get();
 
-		return ResponseEntity.ok(body);
+		dto.setId(property.getId());
+		dto.setSellerName(property.getSeller().getFirstName() + " " + property.getSeller().getLastName());
+		dto.setBath(property.getBath());
+		dto.setBeds(property.getBeds());
+		dto.setGrdn(property.getGrdn());
+		dto.setLoc(property.getLoc());
+		dto.setPcod(property.getPcod());
+		dto.setPrc(property.getPrc());
+		dto.setStatus(property.getStatus());
+
+		for (Booking booking : property.getBookings()) {
+			BookingDTO bookingDto = new BookingDTO();
+
+			bookingDto.setId(booking.getId());
+			bookingDto.setTime(booking.getTime());
+			bookingDto.setDate(booking.getDate());
+
+			bookingDto.setBuyerName(booking.getBuyer().getFirstName() + " " + booking.getBuyer().getLastName());
+
+			dto.getBookings().add(bookingDto);
+		}
+
+		return ResponseEntity.ok(dto);
 	}
 
 	public ResponseEntity<Property> updateProperty(int id, Property newProperty) {

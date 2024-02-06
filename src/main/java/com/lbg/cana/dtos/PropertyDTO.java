@@ -1,5 +1,8 @@
 package com.lbg.cana.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PropertyDTO {
 
 	private Integer id;
@@ -20,7 +23,7 @@ public class PropertyDTO {
 
 	private String sellerName;
 
-//	private List<Booking> booking;
+	private List<BookingDTO> bookings = new ArrayList<>();
 
 	public PropertyDTO() {
 		super();
@@ -97,4 +100,13 @@ public class PropertyDTO {
 	public void setSellerName(String sellerName) {
 		this.sellerName = sellerName;
 	}
+
+	public List<BookingDTO> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<BookingDTO> bookings) {
+		this.bookings = bookings;
+	}
+
 }

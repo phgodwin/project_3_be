@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,17 +18,17 @@ public class Property {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	@Column(nullable = false)
 	private String prc;
-
+	@Column(nullable = false)
 	private String loc;
-
+	@Column(nullable = false)
 	private String pcod;
-
+	@Column(nullable = false)
 	private String beds;
-
+	@Column(nullable = false)
 	private String bath;
-
+	@Column(nullable = false)
 	private String grdn;
 
 	private String status;
@@ -38,7 +39,7 @@ public class Property {
 
 	@JsonBackReference(value = "property")
 	@OneToMany(mappedBy = "property")
-	private List<Booking> booking;
+	private List<Booking> bookings;
 
 	public Property() {
 		super();
@@ -114,6 +115,14 @@ public class Property {
 
 	public void setSeller(Seller seller) {
 		this.seller = seller;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 
 	@Override
