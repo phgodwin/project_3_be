@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lbg.cana.domain.Booking;
+import com.lbg.cana.dtos.BookingDTO;
 import com.lbg.cana.service.BookingService;
 
 @RequestMapping("/bookings")
@@ -29,24 +30,21 @@ public class BookingController {
 
 	@PostMapping("/create")
 	public ResponseEntity<Booking> createBooking(@RequestBody Booking newBooking) {
-
 		return this.service.createBooking(newBooking);
 	}
 
 	@GetMapping("/get")
-	public List<Booking> getBooking() {
+	public List<BookingDTO> getBooking() {
 		return this.service.getBooking();
 	}
 
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Booking> getBooking(@PathVariable int id) {
-
 		return this.service.getBooking(id);
 	}
 
 	@DeleteMapping("/delete/{id}")
 	public boolean deleteBooking(@PathVariable int id) {
-
 		return this.service.deleteBooking(id);
 
 	}

@@ -40,4 +40,18 @@ public class SellerService {
 		return ResponseEntity.ok(body);
 	}
 
+	public ResponseEntity<Seller> findByFirstNameAndLastName(String firstName, String lastName) {
+		Optional<Seller> found = this.repo.findByFirstNameAndLastName(firstName, lastName);
+		if (found.isEmpty()) {
+			return new ResponseEntity<Seller>(HttpStatus.NOT_FOUND);
+		}
+		Seller body = found.get();
+		return ResponseEntity.ok(body);
+	}
+
+	public boolean deleteSeller(int id) {
+		this.repo.deleteById(id);
+		return !this.repo.existsById(id);
+	}
+
 }

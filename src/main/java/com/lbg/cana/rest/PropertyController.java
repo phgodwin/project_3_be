@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lbg.cana.domain.Property;
+import com.lbg.cana.dtos.PropertyDTO;
 import com.lbg.cana.service.PropertyService;
 
 @RequestMapping("/properties")
@@ -35,13 +36,13 @@ public class PropertyController {
 	}
 
 	@GetMapping("/get")
-	public List<Property> getProperty() {
+	public List<PropertyDTO> getProperty() {
 
 		return this.service.getProperty();
 	}
 
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Property> getProperty(@PathVariable int id) {
+	public ResponseEntity<PropertyDTO> getProperty(@PathVariable int id) {
 
 		return this.service.getProperty(id);
 

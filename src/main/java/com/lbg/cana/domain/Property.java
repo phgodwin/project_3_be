@@ -2,6 +2,9 @@ package com.lbg.cana.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,28 +18,28 @@ public class Property {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
-	private String sellnme;
-
+	@Column(nullable = false)
 	private String prc;
-
+	@Column(nullable = false)
 	private String loc;
-
+	@Column(nullable = false)
 	private String pcod;
-
+	@Column(nullable = false)
 	private String beds;
-
+	@Column(nullable = false)
 	private String bath;
-
+	@Column(nullable = false)
 	private String grdn;
 
 	private String status;
 
+	@JsonBackReference(value = "seller")
 	@ManyToOne
 	private Seller seller;
 
+	@JsonBackReference(value = "property")
 	@OneToMany(mappedBy = "property")
-	private List<Booking> booking;
+	private List<Booking> bookings;
 
 	public Property() {
 		super();
@@ -48,14 +51,6 @@ public class Property {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getSellnme() {
-		return sellnme;
-	}
-
-	public void setSellnme(String sellnme) {
-		this.sellnme = sellnme;
 	}
 
 	public String getPrc() {
@@ -114,11 +109,27 @@ public class Property {
 		this.status = status;
 	}
 
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
 	@Override
 	public String toString() {
-		return "Property: [ID = " + id + ", Seller Name = " + sellnme + ", Price = " + prc + ", Location = " + loc
-				+ ", PostCode = " + pcod + ", Bedrooms = " + beds + ", Bathrooms = " + bath + ", Garden = " + grdn
-				+ ", Status = " + status + "]";
+		return "Property: [ID = " + id + ", Price = " + prc + ", Location = " + loc + ", PostCode = " + pcod
+				+ ", Bedrooms = " + beds + ", Bathrooms = " + bath + ", Garden = " + grdn + ", Status = " + status
+				+ "]";
 	}
 
 }
