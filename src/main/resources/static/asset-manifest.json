@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.f82be8ff.css",
+    "main.js": "/static/js/main.d001fb9d.js",
+    "static/js/592.27c4e980.chunk.js": "/static/js/592.27c4e980.chunk.js",
+    "static/media/video.mp4": "/static/media/video.00a72bcc0a24175dbfa8.mp4",
+    "static/media/pexels-markus-spiske-1089438.jpg": "/static/media/pexels-markus-spiske-1089438.871c0eb993c0cd624273.jpg",
+    "static/media/Logo.png": "/static/media/Logo.056d73c277083f5e67cf.png",
+    "static/media/bathroom-svgrepo-com.svg": "/static/media/bathroom-svgrepo-com.65263d45b26cbe4d6e543522e44154e3.svg",
+    "static/media/garden-svgrepo-com.svg": "/static/media/garden-svgrepo-com.fcbf0ec105696371e9343366041cb997.svg",
+    "index.html": "/index.html",
+    "static/media/bed-svgrepo-com.svg": "/static/media/bed-svgrepo-com.06bbf940ad8a9b77b313383511a65440.svg",
+    "static/media/person-svgrepo-com.svg": "/static/media/person-svgrepo-com.431b0119278a762b7985d2549fbe862e.svg",
+    "main.f82be8ff.css.map": "/static/css/main.f82be8ff.css.map",
+    "main.d001fb9d.js.map": "/static/js/main.d001fb9d.js.map",
+    "592.27c4e980.chunk.js.map": "/static/js/592.27c4e980.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f82be8ff.css",
+    "static/js/main.d001fb9d.js"
+  ]
+}
