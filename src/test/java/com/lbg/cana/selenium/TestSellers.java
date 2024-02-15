@@ -1,5 +1,7 @@
 package com.lbg.cana.selenium;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.Duration;
 
 import org.junit.jupiter.api.Assertions;
@@ -9,11 +11,15 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
@@ -27,6 +33,9 @@ public class TestSellers {
 
 	private RemoteWebDriver driver;
 
+	@LocalServerPort
+	private int port;
+
 	@BeforeEach
 	void init() {
 		this.driver = new ChromeDriver();
@@ -37,7 +46,10 @@ public class TestSellers {
 	@Order(3)
 	void testCreate() {
 
-		this.driver.get("http://localhost:3000/sellers");
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement sellers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(3) > a"));
+		sellers.click();
 
 		WebElement newFirstName = this.driver.findElement(
 				By.cssSelector("#root > div > div > div:nth-child(3) > form > div:nth-child(1) > input:nth-child(2)"));
@@ -64,30 +76,33 @@ public class TestSellers {
 		submit.click();
 
 		WebElement createdFirstName = this.driver.findElement(
-				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(1)"));
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(3) > td:nth-child(1)"));
 		Assertions.assertEquals("John", createdFirstName.getText());
 
 		WebElement createdLastName = this.driver.findElement(
-				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(2)"));
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(3) > td:nth-child(2)"));
 		Assertions.assertEquals("Doe", createdLastName.getText());
 
 		WebElement createdPostCode = this.driver.findElement(
-				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(3)"));
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(3) > td:nth-child(3)"));
 		Assertions.assertEquals("AB12 3CD", createdPostCode.getText());
 
 		WebElement createdEmail = this.driver.findElement(
-				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(5)"));
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(3) > td:nth-child(5)"));
 		Assertions.assertEquals("Doe@domain.com", createdEmail.getText());
 
 		WebElement createdPhoneNumber = this.driver.findElement(
-				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(4)"));
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(3) > td:nth-child(4)"));
 		Assertions.assertEquals("01233456567", createdPhoneNumber.getText());
 	}
 
 	@Test
 	@Order(1)
 	void testGetSeller() {
-		this.driver.get("http://localhost:3000/sellers");
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement sellers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(3) > a"));
+		sellers.click();
 
 		WebElement createdFirstName = this.driver
 				.findElement(By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr > td:nth-child(1)"));
@@ -108,6 +123,33 @@ public class TestSellers {
 		WebElement createdPhoneNumber = this.driver
 				.findElement(By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr > td:nth-child(4)"));
 		Assertions.assertEquals("0345673", createdPhoneNumber.getText());
+	}
+
+	@Test
+	@Order(3)
+	void testDeleteSeller() throws InterruptedException {
+
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement sellers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(3) > a"));
+		sellers.click();
+
+		WebElement sellerDelete = this.driver.findElement(By.cssSelector(
+				"#root > div > div > div.col-auto > table > tbody > tr:nth-child(2) > td:nth-child(6) > button"));
+		this.driver.executeScript("arguments[0].scrollIntoView(true);", sellerDelete);
+		sellerDelete.click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until((ExpectedConditions.invisibilityOfElementLocated(
+				By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2)"))));
+		try {
+			this.driver
+					.findElement(By.cssSelector("#root > div > div > div.col-auto > table > tbody > tr:nth-child(2)"));
+			fail("Delete has failed");
+
+		} catch (NoSuchElementException ex) {
+
+		}
+
 	}
 
 //	@AfterEach
