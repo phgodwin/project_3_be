@@ -7,3 +7,5 @@ INSERT INTO `buyer` VALUES ( default,  'Bobby','Evans', '09283648282','bobby@gma
 INSERT INTO `seller` VALUES ( default,  'Jordan','Harrison', '07162738492','jordan@gmail.com','CF12 9AD');
 
 INSERT INTO `property` VALUES ( default, 1, '2', '2', 'Yes', 'Tenby', 'T10 6BY', '350000', 'For Sale');   
+
+INSERT INTO `property` VALUES ( default, 1, '2', '4', 'No', 'Edinburgh', 'EH10 6BY', '175000', 'For Sale');  

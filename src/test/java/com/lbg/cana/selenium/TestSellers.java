@@ -44,7 +44,7 @@ public class TestSellers {
 	}
 
 	@Test
-	@Order(3)
+	@Order(2)
 	void testCreate() {
 
 		this.driver.get("http://localhost:" + this.port);
