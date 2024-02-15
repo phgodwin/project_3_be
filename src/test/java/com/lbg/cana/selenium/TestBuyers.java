@@ -1,5 +1,7 @@
 package com.lbg.cana.selenium;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.time.Duration;
 
 import org.junit.jupiter.api.Assertions;
@@ -9,11 +11,15 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 
@@ -26,17 +32,24 @@ public class TestBuyers {
 
 	private RemoteWebDriver driver;
 
+	@LocalServerPort
+	private int port;
+
 	@BeforeEach
 	void init() {
 		this.driver = new ChromeDriver();
+		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 	}
 
 	@Test
 	@Order(2)
 	void testCreate() {
-		this.driver.get("http://localhost:3000/buyers");
-//		this.driver.get("http://localhost:" + this.port);
+
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement buyers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(2) > a"));
+		buyers.click();
 
 		WebElement newFirstName = this.driver
 				.findElement(By.cssSelector("#root > div > div > div > form > div:nth-child(1) > input:nth-child(2)"));
@@ -63,23 +76,23 @@ public class TestBuyers {
 		submit.click();
 
 		WebElement createdFirstName = this.driver
-				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(1)"));
+				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(3) > td:nth-child(1)"));
 		Assertions.assertEquals("John", createdFirstName.getText());
 
 		WebElement createdLastName = this.driver
-				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(2)"));
+				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(3) > td:nth-child(2)"));
 		Assertions.assertEquals("Doe", createdLastName.getText());
 
 		WebElement createdPostCode = this.driver
-				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2)> td:nth-child(3)"));
+				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(3)> td:nth-child(3)"));
 		Assertions.assertEquals("AB12 3CD", createdPostCode.getText());
 
 		WebElement createdEmail = this.driver
-				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(5)"));
+				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(3) > td:nth-child(5)"));
 		Assertions.assertEquals("Doe@domain.com", createdEmail.getText());
 
 		WebElement createdPhoneNumber = this.driver
-				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(4)"));
+				.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(3) > td:nth-child(4)"));
 		Assertions.assertEquals("01233456567", createdPhoneNumber.getText());
 
 	}
@@ -87,8 +100,11 @@ public class TestBuyers {
 	@Test
 	@Order(1)
 	void testGetBuyer() {
-		this.driver.get("http://localhost:3000/buyers");
-//		this.driver.get("http://localhost:" + this.port);
+
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement buyers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(2) > a"));
+		buyers.click();
 
 		WebElement createdFirstName = this.driver
 				.findElement(By.cssSelector("#root > div > div > table > tbody > tr > td:nth-child(1)"));
@@ -109,6 +125,46 @@ public class TestBuyers {
 		WebElement createdPhoneNumber = this.driver
 				.findElement(By.cssSelector("#root > div > div > table > tbody > tr > td:nth-child(4)"));
 		Assertions.assertEquals("0342567543", createdPhoneNumber.getText());
+	}
+
+//	@Test
+//	@Order(3)
+//	void testEditBuyer() {
+//		this.driver.get("http://localhost:" + this.port);
+//
+//		WebElement buyers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(2) > a"));
+//		buyers.click();
+//
+//		WebElement editButton = this.driver.findElement(
+//				By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(7) > button"));
+//		editButton.click();
+//
+//	}
+
+	@Test
+	@Order(3)
+	void testDeleteBuyer() throws InterruptedException {
+
+		this.driver.get("http://localhost:" + this.port);
+
+		WebElement buyers = this.driver.findElement(By.cssSelector("#navbarNav > ul > li:nth-child(2) > a"));
+		buyers.click();
+
+		WebElement buyerDelete = this.driver.findElement(
+				By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2) > td:nth-child(6) > button"));
+		this.driver.executeScript("arguments[0].scrollIntoView(true);", buyerDelete);
+		buyerDelete.click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until((ExpectedConditions
+				.invisibilityOfElementLocated(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2)"))));
+		try {
+			this.driver.findElement(By.cssSelector("#root > div > div > table > tbody > tr:nth-child(2)"));
+			fail("Delete has failed");
+
+		} catch (NoSuchElementException ex) {
+
+		}
+
 	}
 
 //	@AfterEach
